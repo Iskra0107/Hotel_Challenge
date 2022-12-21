@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+
+
+
+
+{% block content %}
+    <div class="container">
+        <h1>Add Review</h1>
+        <br><br>
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary mt-3">Add a review</button>
+                </a>
+            </form>
+        </div>
+
+        {% for hotel in hotels.hotel_review.all %}
+            {{ hotel.user }}
+            {{ hotel.hotel_rating }}
+
+            <br>
+            {{ hotel.desc_review }}
+        {% endfor %}
+
+
+        </form>
+
+
+    </div>
+{% endblock %}

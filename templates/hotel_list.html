@@ -1,0 +1,65 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="mb-3">BOOK YOUR HOTEL AND WRITE A REVIEW </h1>
+        {% for hotels in hotel_list %}
+
+            <div class="row mb-3">
+                <div class="col">
+                    <img class="" src="{{ MEDIA_URL }}{{ hotels.images.url }}" alt="image hotel" style="width: 550px">
+                </div>
+                <div class="col">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ hotels.hotel_name }}</h3>
+
+                        <div id="favourite-section">
+                            {% if is_favourite %}
+                                <a href="{% url 'favourite_hotels' %}" data-toggle="tooltip" data-placement="top"
+                                   title="Add to favourite">
+                                    <i class="fa fa-heart" style="font-size:35px; color: #7a0d0d"></i>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'favourite_hotels' %}">
+                                    <i class="fa fa-heart-o" style="font-size:35px; color: #7a0d0d"></i>
+                                </a>
+                            {% endif %}
+
+                        </div>
+
+                        <h4>{{ hotels.hotel_address }} {{ hotels.hotel_geolocation }}
+                        </h4>
+                        <p>Overal rating: {{ hotels.overall_rating }}</p>
+                        <p class="card-subtitle mb-3">{{ hotels.desc }}</p>
+
+                    </div>
+                </div>
+                <div class="col">
+                    <h4>Reviews</h4>
+                    {% for hotel in hotels.hotel_review.all %}
+                        <ul>
+                            <li>{{ hotel.user }} {{ hotel.hotel_rating }} {{ hotel.desc_review }}</li>
+
+                        </ul>
+                        <form action="{% url 'like_review' hotels.pk %}" method="POST">
+                            {% csrf_token %}
+
+                            <button type="submit" , name="hotel_review_id" , value="{{ hotels.hotel.id }}" ,
+                                    class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i></button>
+                        </form>
+                    {% endfor %}
+
+
+
+                    <a href="{% url 'add_review' %}">
+                        <button type="button" class="btn btn-secondary mt-3">Add a review</button>
+                    </a>
+                </div>
+            </div>
+
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

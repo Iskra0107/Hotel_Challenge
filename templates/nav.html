@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark shadow fixed-top text-white">
+    <div class="container">
+
+
+        <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+        <div class="collapse navbar-collapse mx-2" id="navbarNavAltMarkup">
+
+            <div class="navbar-nav mr-auto">
+                <ul class="navbar-nav ">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-item nav-link" href="{% url 'hotel_list' %}">Hotels</a></li>
+                        <li class="nav-item"><a class="nav-item nav-link" href="{% url 'add_review' %}">Add Review</a>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-item nav-link" href="{% url 'favourite_hotels' %}">Favourites</a></li>
+                        <li class="nav-item"><a class="nav-item nav-link" href="{% url 'logout' %}"
+                                                class="btn btn-primary">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-item nav-link" href="{% url 'register_user' %}">Register</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-item nav-link" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+
+                    <li>
+                    </li>
+                </ul>
+
+
+            </div>
+
+        </div>
+        {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'login' %}">{{ user.username }}</a>
+                </li>
+            </ul>
+        {% endif %}
+
+        <form class="d-flex" method="POST" action="{% url 'search_hotels' %}">
+
+            {% csrf_token %}
+
+            <input class="form-control mx-2" type="search" placeholder="Search Hotels" aria-label="Search"
+                   name="searched">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+

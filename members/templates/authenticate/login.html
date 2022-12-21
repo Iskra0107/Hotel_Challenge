@@ -1,0 +1,45 @@
+
+
+{% extends 'home.html' %}
+
+
+{% block content %}
+    <div class="container">
+
+
+        <br><br><br><br>
+        <h1 class="display-1">Login</h1>
+        <br>
+
+
+        <div class="row mb-3">
+            <div class="col">
+                <form method="POST" action="">
+
+                    {% csrf_token %}
+
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" class="form-control" name="username" aria-describedby="emailHelp"
+                                   placeholder="Enter username">
+                        </div>
+
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+
+                        <br>
+                        <button class="btn btn-success" type="submit">Login</button>
+                        <button class="btn btn-secondary" type="submit"><a href="register_user"
+                                                                           style="text-decoration: none; color: white;">Register</a>
+                        </button>
+                    </form>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
